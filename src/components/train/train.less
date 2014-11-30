@@ -1,0 +1,26 @@
+.train {
+    h1 {
+        color: @gray;
+        padding-left: 20px;
+    }
+
+    .btn-back {
+        float: right;
+        margin-right: 10px;
+        color: @gray;
+    }
+
+    .train-selected {
+        opacity: 0;
+        display: none;
+    }
+
+    .train-selected,
+    .train-not-selected {
+        position: relative;
+        top: -10px;
+    }
+
+    @import "train-list/train-list";
+    @import "train-details/train-details";
+}

@@ -1,0 +1,16 @@
+<dl class="train-details dl-horizontaldl-horizontal">
+    <dt>origin</dt>
+    <dd>{{ data.originStation }}</dd>
+    <dt>destination</dt>
+    <dd>{{ data.destinationStation }}</dd>
+
+    <dt>duration</dt>
+    <dd>{{ data.duration }}</dd>
+    <dt>start time</dt>
+    <dd>{{ data.startTime }}</dd>
+    <dt>arrival time</dt>
+    <dd>{{ data.arrivalTime }}</dd>
+
+    <dt ng-if="data.operator">operator</dt>
+    <dd ng-if="data.operator">{{ data.operator }}</dd>
+</dl>
