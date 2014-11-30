@@ -468,8 +468,12 @@ function(){
     */
 
     function getDateFromHMS(hms) {
-        var parts = hms.split(":");
-        var date = new Date();
+        var parts = hms.split(":"),
+            date = new Date();
+
+        if(parts.length !== 3 || isNaN(parts[0]) || isNaN(parts[1] || isNaN(parts[2]))) {
+            throw new Error("Time service: invalid data");
+        }
 
         date.setHours(parts[0]);
         date.setMinutes(parts[1]);
