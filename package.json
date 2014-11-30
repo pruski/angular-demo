@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "angular demo application",
   "author": "Konrad Pruski",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pruski/angular-demo"
+  },
   "devDependencies": {
     "grunt": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
