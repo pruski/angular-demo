@@ -279,6 +279,69 @@ angular.module('demoApp', [
 ]);
 angular.module('trainDetails', []);
 
+
+angular.module('trainListItem', []);
+
+
+angular.module('trainList', [
+    'trainListItem'
+]);
+
+
+angular.module('train', [
+    'trainDetails',
+    'trainList'
+]);
+
+
+angular.module('utils', []);
+angular.module('train').factory('collections.train', [
+    '$resource',
+    'models.train',
+
+function($resource, Train){
+    'use strict';
+
+    var trains = [],
+        selectedTrain = null,
+        trainsRes = $resource('/journeys.json', {}, {
+            get: {
+                method:'get',
+                isArray: true
+            }
+        });
+
+    return {
+        getTrains: function() {
+            return trains;
+        },
+
+        fetchTrains: function () {
+            trainsRes.get({}, function (data) {
+                angular.forEach(data, function (item) {
+                    trains.push(new Train(item));
+                });
+            });
+        },
+
+        select: function (train) {
+            selectedTrain = train;
+        },
+
+        getSelected: function() {
+            return selectedTrain;
+        }
+    };
+}]);
+angular.module('train').controller('trainCtrl', [
+    '$scope',
+    'collections.train',
+
+function($scope, trainList){
+     'use strict';
+
+    $scope.trainList = trainList;
+}]);
 angular.module('trainDetails').directive('trainDetails', function(){
    'use strict';
 
@@ -291,57 +354,6 @@ angular.module('trainDetails').directive('trainDetails', function(){
         }
     };
 });
-angular.module('trainListItem', []);
-
-angular.module('trainListItem').directive('trainListItem', function(){
-   'use strict';
-
-    return {
-        restrict    : 'A',
-        replace     : true,
-        controller: 'trainCtrl',
-        templateUrl : 'templates/train/train-list/train-list-item/train-list-item.html',
-        scope: {
-            data: '=trainListItem'
-        }
-    };
-});
-angular.module('trainList', [
-    'trainListItem'
-]);
-
-angular.module('trainList').directive('trainList', function(){
-   'use strict';
-
-    return {
-        restrict    : 'A',
-        replace     : true,
-        priority    : 1,
-        controller  : 'trainListCtrl',
-        templateUrl : 'templates/train/train-list/train-list.html',
-        scope: {
-
-        }
-    };
-});
-
-angular.module('trainList').controller('trainListCtrl', [
-    '$scope',
-    'collections.train',
-
-function($scope, trainList){
-    'use strict';
-
-    $scope.trainList = trainList;
-
-    // initialisation
-    $scope.trainList.fetchTrains();
-}]);
-angular.module('train', [
-    'trainDetails',
-    'trainList'
-]);
-
 angular.module('train').directive('train', function(){
    'use strict';
 
@@ -395,54 +407,48 @@ angular.module('train').directive('train', function(){
     }
 });
 
-angular.module('train').controller('trainCtrl', [
+
+angular.module('trainList').controller('trainListCtrl', [
     '$scope',
     'collections.train',
 
 function($scope, trainList){
-     'use strict';
-
-    $scope.trainList = trainList;
-}]);
-angular.module('utils', []);
-angular.module('train').factory('collections.train', [
-    '$resource',
-    'models.train',
-
-function($resource, Train){
     'use strict';
 
-    var trains = [],
-        selectedTrain = null,
-        trainsRes = $resource('/journeys.json', {}, {
-            get: {
-                method:'get',
-                isArray: true
-            }
-        });
+    $scope.trainList = trainList;
+
+    // initialisation
+    $scope.trainList.fetchTrains();
+}]);
+angular.module('trainList').directive('trainList', function(){
+   'use strict';
 
     return {
-        getTrains: function() {
-            return trains;
-        },
+        restrict    : 'A',
+        replace     : true,
+        priority    : 1,
+        controller  : 'trainListCtrl',
+        templateUrl : 'templates/train/train-list/train-list.html',
+        scope: {
 
-        fetchTrains: function () {
-            trainsRes.get({}, function (data) {
-                angular.forEach(data, function (item) {
-                    trains.push(new Train(item));
-                });
-            });
-        },
-
-        select: function (train) {
-            selectedTrain = train;
-        },
-
-        getSelected: function() {
-            return selectedTrain;
         }
     };
-}]);
+});
+
+
+angular.module('trainListItem').directive('trainListItem', function(){
+   'use strict';
+
+    return {
+        restrict    : 'A',
+        replace     : true,
+        controller: 'trainCtrl',
+        templateUrl : 'templates/train/train-list/train-list-item/train-list-item.html',
+        scope: {
+            data: '=trainListItem'
+        }
+    };
+});
 angular.module('train').service('models.train', [
     'service.time',
 
