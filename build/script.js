@@ -449,7 +449,7 @@ angular.module('trainListItem').directive('trainListItem', function(){
         }
     };
 });
-angular.module('train').service('models.train', [
+angular.module('train').factory('models.train', [
     'service.time',
 
 function(time){
