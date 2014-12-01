@@ -1,4 +1,4 @@
-angular.module('train').factory('models.train', [
+angular.module('train').factory('trainModel', [
     'service.time',
 
 function(time){

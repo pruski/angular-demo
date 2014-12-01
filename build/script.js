@@ -295,9 +295,9 @@ angular.module('train', [
 
 
 angular.module('utils', []);
-angular.module('train').factory('collections.train', [
+angular.module('train').factory('trainCollection', [
     '$resource',
-    'models.train',
+    'trainModel',
 
 function($resource, Train){
     'use strict';
@@ -335,7 +335,7 @@ function($resource, Train){
 }]);
 angular.module('train').controller('trainCtrl', [
     '$scope',
-    'collections.train',
+    'trainCollection',
 
 function($scope, trainList){
      'use strict';
@@ -410,7 +410,7 @@ angular.module('train').directive('train', function(){
 
 angular.module('trainList').controller('trainListCtrl', [
     '$scope',
-    'collections.train',
+    'trainCollection',
 
 function($scope, trainList){
     'use strict';
@@ -449,7 +449,7 @@ angular.module('trainListItem').directive('trainListItem', function(){
         }
     };
 });
-angular.module('train').factory('models.train', [
+angular.module('train').factory('trainModel', [
     'service.time',
 
 function(time){

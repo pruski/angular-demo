@@ -1,6 +1,6 @@
 angular.module('train').controller('trainCtrl', [
     '$scope',
-    'collections.train',
+    'trainCollection',
 
 function($scope, trainList){
      'use strict';

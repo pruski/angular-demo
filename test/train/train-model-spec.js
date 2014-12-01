@@ -2,7 +2,7 @@ describe("Train model", function () {
     var Train;
 
     beforeEach(function () {
-        Train = angular.injector(['ng', 'utils', 'train']).get('models.train');
+        Train = angular.injector(['ng', 'utils', 'train']).get('trainModel');
     });
 
     it("should create a Train instance", function () {
@@ -37,10 +37,10 @@ describe("Train model", function () {
     it("should throw an error given incorrect start or arrival time parameter", function () {
         expect(function(){
             new Train({
-                "startTime": "wec",
-                "arrivalTime": "xwecdw"
+                "startTime": "corrupted",
+                "arrivalTime": "corrupted"
             });
-            
+
         }).toThrow();
     });
 });

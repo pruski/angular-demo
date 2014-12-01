@@ -1,6 +1,6 @@
-angular.module('train').factory('collections.train', [
+angular.module('train').factory('trainCollection', [
     '$resource',
-    'models.train',
+    'trainModel',
 
 function($resource, Train){
     'use strict';
