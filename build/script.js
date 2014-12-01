@@ -506,7 +506,7 @@ angular.module('demoApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/train/train-details/train-details.html',
-    "<dl class=\"train-details dl-horizontaldl-horizontal\">\n" +
+    "<dl class=\"train-details dl-horizontal\">\n" +
     "    <dt>origin</dt>\n" +
     "    <dd>{{ data.originStation }}</dd>\n" +
     "    <dt>destination</dt>\n" +
