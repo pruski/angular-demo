@@ -34,27 +34,24 @@ describe("Train directive", function () {
     });
 
     it("should render Train module", function(done){
-        var element,
-            compiledHtml;
+        var element;
 
         element = $compile(angular.element('<train></train>'))($rootScope);
 
         $rootScope.$digest();
 
         setTimeout(function(){
-            compiledHtml = element.html();
-            expect(compiledHtml).toContain('<h1>TrainList</h1>');
-            expect(compiledHtml).toContain('<ul class="train-not-selected train-list ng-isolate-scope" train-list="" style="display: block; opacity: 1; top: 0px;">');
-            expect(compiledHtml).toContain('<dl class="train-selected train-details dl-horizontal ng-isolate-scope" train-details="trainList.getSelected()" style="opacity: 0; top: -10px; display: none;">');
+            expect(element.html()).toContain('<h1>TrainList</h1>');
+            expect(element.find('ul').css('display')).toBe('block');
+            expect(element.find('dl').css('display')).toBe('none');
 
             done();
 
-        }, 450);
+        }, 100);
     });
 
     it("should hide Train list and reveal Train details", function(done){
-        var element,
-            compiledHtml;
+        var element;
 
         element = $compile(angular.element('<train></train>'))($rootScope);
         $rootScope.$digest();
@@ -63,13 +60,34 @@ describe("Train directive", function () {
             element.find('.train-list-item').click();
 
             setTimeout(function(){
-                compiledHtml = element.html();
-                expect(compiledHtml).toContain('<ul class="train-not-selected train-list ng-isolate-scope" train-list="" style="display: none; opacity: 0; top: -10px;">');
-                expect(compiledHtml).toContain('<dl class="train-selected train-details dl-horizontal ng-isolate-scope" train-details="trainList.getSelected()" style="opacity: 1; top: 0px; display: block;">');
+                expect(element.find('ul').css('display')).toBe('none');
+                expect(element.find('dl').css('display')).toBe('block');
 
                 done();
 
-            }, 450);
-        }, 450);
+            }, 400);
+        }, 100);
+    });
+
+    it("should hide Train detail and reveal Train list", function(done){
+        var element;
+
+        trains.select(trainInstance);
+        element = $compile(angular.element('<train></train>'))($rootScope);
+        $rootScope.$digest();
+
+        setTimeout(function(){
+            element.find('.train-not-selected').css({display: 'none', opacity: 0, top: '-10px'});
+            element.find('.train-selected').css({display: 'block', opacity: 1, top: '0px'});
+            element.find('.btn-back').click();
+
+            setTimeout(function(){
+                expect(element.find('ul').css('display')).toBe('block');
+                expect(element.find('dl').css('display')).toBe('none');
+
+                done();
+
+            }, 400);
+        }, 100);
     });
 });
